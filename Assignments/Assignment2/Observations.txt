@@ -1,0 +1,38 @@
+The IT instruction is used to build an IF-THEN-ELSE block. 
+
+IT instruction is followed by a condition. This instruction can take upto 4 consequences like ITTEE,ITTTE,ITEEE etc.
+
+The number of Ts & Es should be equal to number of consequential instructions to be executed
+
+         IT condition
+           INS1        (If the condition is true ,then INS1 is executed).
+
+         ITE condition
+           INS1
+           INS2        (If the condition is true ,then INS1 is executed, else INS2 executed).
+
+The ELSE condition must be inverse of THEN condition.
+
+The instructions that are related to the THEN should be consistent to "condition".
+
+That are made consistent by keeping condition at the end of opcode and inverse condition at the end of ELSE related instructions' opcode.
+
+So,the given code is giving errors.
+
+The code is corrected simply by appending conditions to the opcode.
+
+AREA     Largest, CODE, READONLY
+	 export __main	 
+	 ENTRY 
+__main  function
+	          MOV R3, #0x100
+              MOV R8, #0x200
+              CMP R8, R3 ; do R8 - R3 & updated N & V flags
+              ITTTE LT ; or N != V
+              MOVLT R3, #0x100
+              MOVLT R8, #0x200
+              MOVLT R7, #0x200
+              MOVGE R6, #0x200
+stop          B stop ; stop program
+               endfunc
+                end
